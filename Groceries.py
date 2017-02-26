@@ -14,7 +14,6 @@ import slackbots as sb
 app = Flask(__name__)
 
 SLACK_WEBHOOK_SECRET = os.environ.get('SLACK_WEBHOOK_SECRET')
-#SLACK_WEBHOOK_SECRET = 'fbky1FPlfLLCgGrV5KX5Qqod'
 
 mrpear = sb.GroceryBot()
 
