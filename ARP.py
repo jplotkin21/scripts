@@ -1,13 +1,14 @@
 #!/usr/bin/env python
 ''' Make sure to run with sudo -E to be superuser while maintaing standard user environment variables'''
+import os
 import time
 import slackbots as sb
 import argparse
 import scapy.all as sc
 import pdb
 
-WEBHOOK="https://hooks.slack.com/services/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"
-SECURITY_ROOM="security"
+WEBHOOK = os.environ.get("SECURITY_WEBHOOK")
+SECURITY_ROOM = os.environ.get("SECURITY_ROOM_NAME")
 
 def NetworkChanges(current, prior):
     added_macs = set(current) - set(prior)
