@@ -43,15 +43,19 @@ if __name__ == "__main__":
     print '[!!] args: %s' % args
     bot = sb.SlackBot(SECURITY_ROOM)
     print '[!!] channel id: %s' % bot.channel_id
-    prior_devices, current_devices = {}, {}
+    second_prior, prior_devices, current_devices = {}, {}, {}
     while True:
         print "[!!] %s Running.." % time.ctime(time.time())
         ans=ARPScan(args.network_ip)
         current_devices = dict([(r[1].hwsrc, r[1].psrc) for r in ans])
-        diff = NetworkChanges(current_devices, prior_devices)
+        priors = {}
+        priors.update(prior_devices)
+        priors.update(second_prior)
+        diff = NetworkChanges(current_devices, priors)
         TalkToMeGoose(bot, diff)
         print '[!!] diff: %s' % diff
         print ans.summary()
+        second_prior = prior_devices
         prior_devices = current_devices
         time.sleep(args.scan_frequency)
         #check ans against last run, send message to slack room on diffs
