@@ -1,0 +1,39 @@
+#!/usr/bin/env python
+
+import sys
+
+def text_to_hex(text):
+    '''text is original argv array, join with spaces'''
+    text = ' '.join(text)
+    hexed_text = [hex(ord(ch)).replace('0x','') for ch in text]
+    hexed_text =  ' '.join(hexed_text)
+    print hexed_text
+
+def hex_to_text(_hex):
+    '''assume each byte is separated by a space'''
+    text_array = [chr(int(h,16)) for h in _hex]
+    text = ''.join(text_array)
+    print text
+
+def show_usage():
+    print './text_hexer -t [TEXT] hexlifies text'
+    print './text_hexer -h [HEX] converts back to text'
+    print 'each byte of hex should be separated by a space'
+
+def main():
+    if len(sys.argv) == 1:
+        show_usage()
+        exit(0)
+    args = sys.argv[1:]
+    
+    if args[0] == '-t':
+        text_to_hex(args[1:])
+    elif args[0] == '-h':
+        hex_to_text(args[1:])
+    else:
+        show_usage()
+
+    return(0)
+
+if __name__ == '__main__':
+        main()
